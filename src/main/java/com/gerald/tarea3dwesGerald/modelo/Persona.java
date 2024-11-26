@@ -23,12 +23,14 @@ public class Persona implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(length=20)
 	private String nombre;
 	
 	@Column(unique=true)
 	private String email;
 	
-	@OneToMany(mappedBy = "persona")
+	@OneToMany(mappedBy = "persona", cascade= CascadeType.ALL)
     private List<Mensaje> mensajes = new LinkedList<Mensaje>();
 	
 	@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)

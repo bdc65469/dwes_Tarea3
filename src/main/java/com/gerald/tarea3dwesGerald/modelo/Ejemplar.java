@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,14 +25,14 @@ public class Ejemplar implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column()
 	private String nombre;
 	
 	@ManyToOne
     @JoinColumn(name = "idplanta", nullable = false)
 	private Planta planta;
 	
-	@OneToMany(mappedBy = "ejemplar")
+	@OneToMany(mappedBy = "ejemplar",cascade= CascadeType.ALL)
     private List<Mensaje> mensajes = new LinkedList<Mensaje>();
 	
 	public Ejemplar() {}
