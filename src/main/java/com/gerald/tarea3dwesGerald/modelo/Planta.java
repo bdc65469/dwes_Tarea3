@@ -1,8 +1,11 @@
 package com.gerald.tarea3dwesGerald.modelo;
 
+import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,16 +15,25 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="plantas")
-public class Planta {
+public class Planta implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column (unique=true)
+	private String codigo;
+	
+	@Column
 	private String nombrecomun;
+	
+	@Column
 	private String nombrecientifico;
 	
 	@OneToMany(mappedBy = "planta", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Ejemplar> ejemplares;
+	private List<Ejemplar> ejemplares = new LinkedList<Ejemplar>();
 	
 	public Planta() {}
 	
@@ -38,6 +50,15 @@ public class Planta {
 
 	public void setId(Long Id) {
 		this.id = Id;
+	}
+	
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getNombrecomun() {

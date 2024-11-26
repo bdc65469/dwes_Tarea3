@@ -1,5 +1,6 @@
 package com.gerald.tarea3dwesGerald.modelo;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
@@ -15,8 +16,11 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "mensajes")
-public class Mensaje {
+public class Mensaje implements Serializable{
 	
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;

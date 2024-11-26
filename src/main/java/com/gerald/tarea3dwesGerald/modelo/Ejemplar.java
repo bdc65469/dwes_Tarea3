@@ -1,7 +1,10 @@
 package com.gerald.tarea3dwesGerald.modelo;
 
+import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,11 +16,15 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "ejemplares")
-public class Ejemplar {
+public class Ejemplar implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column
 	private String nombre;
 	
 	@ManyToOne
@@ -25,12 +32,12 @@ public class Ejemplar {
 	private Planta planta;
 	
 	@OneToMany(mappedBy = "ejemplar")
-    private List<Mensaje> mensajes;
+    private List<Mensaje> mensajes = new LinkedList<Mensaje>();
 	
 	public Ejemplar() {}
 	
 	public Ejemplar(Planta planta) {
-		this.nombre = planta.getId()+"_"+this.id;
+		this.nombre = planta.getCodigo()+"_"+this.id;
 	}
 
 	public Ejemplar(Long id, String nombre) {
