@@ -8,5 +8,7 @@ import com.gerald.tarea3dwesGerald.modelo.Planta;
 //Tipo de objeto
 //Clave primaria
 public interface PlantaRepository extends JpaRepository <Planta, Long> {
+	
+	
 
 }
