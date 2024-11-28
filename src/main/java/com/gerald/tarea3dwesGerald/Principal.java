@@ -2,23 +2,30 @@ package com.gerald.tarea3dwesGerald;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.env.Environment;
 
-import com.gerald.tarea3dwesGerald.servicios.*;
-import com.gerald.tarea3dwesGerald.modelo.*;
+import com.gerald.tarea3dwesGerald.vista.FachadaPrincipal;
+
 
 public class Principal implements CommandLineRunner {
 	
-	@Autowired
-	ServiciosPlanta servPlant;
+	
 	
 	@Autowired
-	ServiciosEjemplar servEjemplar;
+    private Environment environment;
 
 	@Override
 	public void run(String... args) throws Exception {
-		//Este es el main
-		System.out.println("INI");
-		System.out.println("FIN");
+		
+		FachadaPrincipal portal = FachadaPrincipal.getInstance();
+		
+		portal.mostrarMenuInvitado();
+		
+		String username = environment.getProperty("spring.security.user.name");
+        String password = environment.getProperty("spring.security.user.password");
+        String roles = environment.getProperty("spring.security.user.roles");
+        
+        //System.out.println(username);
 	}
 
 }

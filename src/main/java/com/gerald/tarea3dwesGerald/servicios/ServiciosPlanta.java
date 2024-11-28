@@ -2,6 +2,8 @@ package com.gerald.tarea3dwesGerald.servicios;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,10 @@ public class ServiciosPlanta {
 	
 	public void insertarPlanta (Planta p) {
 		plantaRepo.saveAndFlush(p);
+	}
+	
+	public List<Planta> listaPlantas(){
+		return plantaRepo.findAll();
 	}
 	
 
