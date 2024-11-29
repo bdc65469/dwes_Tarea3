@@ -28,7 +28,7 @@ public class Mensaje implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime fechahora;
 	
-	@Lob
+	@Lob 
 	private String mensaje;
 	
 	@ManyToOne

@@ -25,7 +25,7 @@ public class Ejemplar implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column()
+	@Column(length=25)
 	private String nombre;
 	
 	@ManyToOne

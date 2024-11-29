@@ -26,10 +26,10 @@ public class Planta implements Serializable {
 	@Column (unique=true)
 	private String codigo;
 	
-	@Column
+	@Column (length=100)
 	private String nombrecomun;
 	
-	@Column
+	@Column (length=100)
 	private String nombrecientifico;
 	
 	@OneToMany(mappedBy = "planta", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -40,6 +40,14 @@ public class Planta implements Serializable {
 	public Planta(Long id, String nombrecomun, String nombrecientifico) {
 		super();
 		this.id = id;
+		this.nombrecomun = nombrecomun;
+		this.nombrecientifico = nombrecientifico;
+	}
+	
+
+	public Planta(String codigo, String nombrecomun, String nombrecientifico) {
+		super();
+		this.codigo = codigo;
 		this.nombrecomun = nombrecomun;
 		this.nombrecientifico = nombrecientifico;
 	}

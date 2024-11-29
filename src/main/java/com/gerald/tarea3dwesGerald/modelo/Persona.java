@@ -24,10 +24,10 @@ public class Persona implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(length=20)
+	@Column(length=50)
 	private String nombre;
 	
-	@Column(unique=true)
+	@Column(unique=true, length=50)
 	private String email;
 	
 	@OneToMany(mappedBy = "persona", cascade= CascadeType.ALL)

@@ -7,5 +7,7 @@ import com.gerald.tarea3dwesGerald.modelo.Persona;
 
 @Repository
 public interface PersonaRepository extends JpaRepository <Persona, Long> {
+	
+	boolean existsByEmail(String email);
 
 }

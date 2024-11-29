@@ -21,10 +21,10 @@ public class Credenciales implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique=true)
+	@Column(unique=true, length=50)
 	private String usuario;
 	
-	@Column
+	@Column (length=50)
 	private String password;
 	
 	@OneToOne

@@ -5,8 +5,12 @@ import org.springframework.stereotype.Repository;
 
 import com.gerald.tarea3dwesGerald.modelo.Credenciales;
 
-
 @Repository
-public interface CrendencialesRepository extends JpaRepository <Credenciales, Long>{
+public interface CredencialesRepository extends JpaRepository <Credenciales, Long>{
+	
+	 Credenciales findByUsuarioAndPassword(String usuario, String password);
+	 
+	 boolean existsByUsuario(String usuario);
+	
 
 }

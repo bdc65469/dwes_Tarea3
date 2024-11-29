@@ -9,6 +9,8 @@ import com.gerald.tarea3dwesGerald.modelo.Planta;
 //Clave primaria
 public interface PlantaRepository extends JpaRepository <Planta, Long> {
 	
+	boolean existsByCodigo(String codigo);
 	
+	boolean existsById(Long id);
 
 }
