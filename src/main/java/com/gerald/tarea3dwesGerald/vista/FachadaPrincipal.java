@@ -17,29 +17,32 @@ import jakarta.annotation.PostConstruct;
 
 @Component
 public class FachadaPrincipal {
-	
+
 	@Autowired
 	private ServiciosFactory factory;
-	
+
 	@Autowired
 	private FachadaPlantas menuPlantas;
-	
+
+	@Autowired
+	private FachadaEjemplares menuEjemplares;
+
 	Scanner teclado = new Scanner(System.in);
 
 	Sesion s = new Sesion("", Perfil.INVITADO);
 	boolean sesionActiva = true;
-	
+
 	private static FachadaPrincipal instance;
 
-    @PostConstruct
-    public void init() {
-        instance = this;
-    }
+	@PostConstruct
+	public void init() {
+		instance = this;
+	}
 
-    public static FachadaPrincipal getInstance() {
-        return instance;
-    }
-	
+	public static FachadaPrincipal getInstance() {
+		return instance;
+	}
+
 	private void menuInvitado() {
 		System.out.println("");
 		System.out.println("***********************************************");
@@ -63,7 +66,6 @@ public class FachadaPrincipal {
 		System.out.println("Seleccione una opcion:");
 	}
 
-
 	private void menuUsuarioRegistrado(String usuario) {
 		System.out.println("");
 		System.out.println("***********************************************");
@@ -75,7 +77,7 @@ public class FachadaPrincipal {
 		System.out.println("Seleccione una opcion:");
 
 	}
-	
+
 	public void mostrarMenuInvitado() {
 		int opcion = -1;
 		do {
@@ -90,7 +92,7 @@ public class FachadaPrincipal {
 
 				switch (opcion) {
 				case 1:
-					//Ver lista plantas
+					// Ver lista plantas
 					if (factory.getServiciosPlanta().listaPlantas().size() == 0) {
 						System.out.println("No hay plantas almacenadas");
 					} else {
@@ -102,8 +104,8 @@ public class FachadaPrincipal {
 					}
 					break;
 				case 2:
-					
-					//Login
+
+					// Login
 					System.out.print("Introduce tu usuario: ");
 					String usuario = teclado.nextLine();
 					System.out.print("Introduce tu contraseña: ");
@@ -117,8 +119,8 @@ public class FachadaPrincipal {
 							this.mostrarMenuAdministrador(s);
 
 						} else {
-							//this.mostrarMenuUsuarioRegistrado(s);
-							System.out.println("Conectado "+s.getUsuario());
+							this.mostrarMenuUsuarioRegistrado(s);
+							
 						}
 					} else {
 						System.out.println("Usuario o contraseña incorrectos");
@@ -126,7 +128,7 @@ public class FachadaPrincipal {
 
 					break;
 				case 0:
-					//Cerrar programa
+					// Cerrar programa
 					sesionActiva = false;
 					teclado.close();
 					break;
@@ -139,7 +141,7 @@ public class FachadaPrincipal {
 
 		teclado.close();
 	}
-	
+
 	public void mostrarMenuAdministrador(Sesion s) {
 		int opcion = -1;
 		do {
@@ -154,7 +156,7 @@ public class FachadaPrincipal {
 
 				switch (opcion) {
 				case 1:
-					//Registrar persona
+					// Registrar persona
 					String nombre = "";
 					do {
 						System.out.println("Introduce el nombre de la persona: ");
@@ -179,7 +181,8 @@ public class FachadaPrincipal {
 						if (factory.getServiciosPersona().existeEmail(email)) {
 							System.out.println("El email ya existe");
 						}
-					} while (factory.getServiciosPersona().existeEmail(email) || !factory.getComprobaciones().esEmailValido(email));
+					} while (factory.getServiciosPersona().existeEmail(email)
+							|| !factory.getComprobaciones().esEmailValido(email));
 
 					String usuario = "";
 
@@ -198,7 +201,8 @@ public class FachadaPrincipal {
 						if (factory.getServiciosCredenciales().existeUsuario(usuario)) {
 							System.out.println("El usuario ya existe");
 						}
-					} while (factory.getComprobaciones().comprobarUsuario(usuario) || factory.getServiciosCredenciales().existeUsuario(usuario)
+					} while (factory.getComprobaciones().comprobarUsuario(usuario)
+							|| factory.getServiciosCredenciales().existeUsuario(usuario)
 							|| usuario.equalsIgnoreCase("admin"));
 
 					String password = "";
@@ -216,34 +220,34 @@ public class FachadaPrincipal {
 						}
 					} while (!factory.getComprobaciones().esContrasenaValida(password)
 							|| factory.getComprobaciones().comprobarEspaciosBlanco(password));
-					
-					Persona p1 = new Persona(nombre, email);
-					Credenciales c1 = new Credenciales (usuario,password);
 
-					if (factory.getServiciosPersona().crearUsuario(p1,c1) != null) {
+					Persona p1 = new Persona(nombre, email);
+					Credenciales c1 = new Credenciales(usuario, password);
+
+					if (factory.getServiciosPersona().crearUsuario(p1, c1) != null) {
 						System.out.println("Usuario registrado correctamente");
 					} else {
 						System.err.println("No se ha podido registrar el usuario");
 					}
 					break;
 				case 2:
-					menuPlantas.mostrarMenuGestionarPlantas();					
+					menuPlantas.mostrarMenuGestionarPlantas();
 					break;
 				case 3:
-					//Llama al menu de gestionar ejemplares
+					menuEjemplares.mostrarMenuGestionEjemplares(s);
 					break;
 				case 4:
-					//Llama al menu de gestionar mensajes
-					
+					// Llama al menu de gestionar mensajes
+
 					break;
 				case 5:
-					//Cerrar sesión
+					// Cerrar sesión
 					System.out.println("Hasta luego " + s.getUsuario());
 					s.cerrarSesion();
 					this.mostrarMenuInvitado();
 					break;
 				case 0:
-					//Cerrar programa
+					// Cerrar programa
 					sesionActiva = false;
 					s.cerrarSesion();
 					teclado.close();
@@ -258,4 +262,45 @@ public class FachadaPrincipal {
 
 	}
 
+	public void mostrarMenuUsuarioRegistrado(Sesion s) {
+		int opcion = -1;
+		do {
+			this.menuUsuarioRegistrado(s.getUsuario());
+			try {
+				opcion = teclado.nextInt();
+				teclado.nextLine();
+				if (opcion < 0 || opcion > 3) {
+					System.err.println("Opción fuera de rango. Inténtelo de nuevo.");
+					continue;
+				}
+
+				switch (opcion) {
+				case 1:
+					// Llama al menú de ejemplares
+					menuEjemplares.mostrarMenuGestionEjemplares(s);
+					break;
+				case 2:
+					// Llama al menú de mensajes
+
+					break;
+				case 3:
+					// Cerrar sesión
+					System.out.println("Hasta luego " + s.getUsuario());
+					s.cerrarSesion();
+					this.mostrarMenuInvitado();
+					break;
+				case 0:
+					// Cerrar programa
+					sesionActiva = false;
+					s.cerrarSesion();
+					teclado.close();
+					break;
+				}
+			} catch (InputMismatchException e) {
+				System.err.println("Entrada inválida. Por favor, ingrese un número entero.");
+				teclado.next();
+			}
+
+		} while (sesionActiva);
+	}
 }

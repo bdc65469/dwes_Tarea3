@@ -1,8 +1,8 @@
 package com.gerald.tarea3dwesGerald.modelo;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -33,7 +33,7 @@ public class Planta implements Serializable {
 	private String nombrecientifico;
 	
 	@OneToMany(mappedBy = "planta", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Ejemplar> ejemplares = new LinkedList<Ejemplar>();
+	private Set<Ejemplar> ejemplares = new HashSet<Ejemplar>();
 	
 	public Planta() {}
 	
@@ -85,11 +85,11 @@ public class Planta implements Serializable {
 		this.nombrecientifico = nombrecientifico;
 	}
 
-	public List<Ejemplar> getEjemplares() {
+	public Set<Ejemplar> getEjemplares() {
 		return ejemplares;
 	}
 
-	public void setEjemplares(List<Ejemplar> ejemplares) {
+	public void setEjemplares(Set<Ejemplar> ejemplares) {
 		this.ejemplares = ejemplares;
 	}
 

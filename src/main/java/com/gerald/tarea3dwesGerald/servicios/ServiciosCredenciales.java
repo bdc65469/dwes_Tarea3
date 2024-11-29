@@ -11,7 +11,7 @@ import com.gerald.tarea3dwesGerald.repositorios.CredencialesRepository;
 public class ServiciosCredenciales {
 
 	@Autowired
-	CredencialesRepository credenRepo;
+	private CredencialesRepository credenRepo;
 	
 	@Autowired
     private Environment environment;

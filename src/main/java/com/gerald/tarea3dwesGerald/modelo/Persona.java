@@ -1,8 +1,8 @@
 package com.gerald.tarea3dwesGerald.modelo;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -31,7 +31,7 @@ public class Persona implements Serializable{
 	private String email;
 	
 	@OneToMany(mappedBy = "persona", cascade= CascadeType.ALL)
-    private List<Mensaje> mensajes = new LinkedList<Mensaje>();
+    private Set<Mensaje> mensajes = new HashSet<Mensaje>();
 	
 	@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
 	private Credenciales credenciales;
@@ -75,11 +75,11 @@ public class Persona implements Serializable{
 		this.email = email;
 	}
 
-	public List<Mensaje> getMensajes() {
+	public Set<Mensaje> getMensajes() {
 		return mensajes;
 	}
 
-	public void setMensajes(List<Mensaje> mensajes) {
+	public void setMensajes(Set<Mensaje> mensajes) {
 		this.mensajes = mensajes;
 	}
 

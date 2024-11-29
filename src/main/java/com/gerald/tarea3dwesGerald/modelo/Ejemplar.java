@@ -1,8 +1,9 @@
 package com.gerald.tarea3dwesGerald.modelo;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -33,18 +34,19 @@ public class Ejemplar implements Serializable{
 	private Planta planta;
 	
 	@OneToMany(mappedBy = "ejemplar",cascade= CascadeType.ALL)
-    private List<Mensaje> mensajes = new LinkedList<Mensaje>();
+    private Set<Mensaje> mensajes = new HashSet<Mensaje>();
 	
 	public Ejemplar() {}
 	
-	public Ejemplar(Planta planta) {
-		this.nombre = planta.getCodigo()+"_"+this.id;
-	}
-
 	public Ejemplar(Long id, String nombre) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
+	}
+
+	public Ejemplar(String nombre, Planta planta) {
+		this.nombre = nombre;
+		this.planta = planta;
 	}
 
 	public Long getId() {
@@ -70,11 +72,39 @@ public class Ejemplar implements Serializable{
 	public void setPlanta(Planta planta) {
 		this.planta = planta;
 	}
+	
+
+	public Set<Mensaje> getMensajes() {
+		return mensajes;
+	}
+
+	public void setMensajes(Set<Mensaje> mensajes) {
+		this.mensajes = mensajes;
+	}
 
 	@Override
 	public String toString() {
 		return "Ejemplar: " + nombre;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nombre);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ejemplar other = (Ejemplar) obj;
+		return Objects.equals(nombre, other.nombre);
+	}
+	
+	
 	
 	
 

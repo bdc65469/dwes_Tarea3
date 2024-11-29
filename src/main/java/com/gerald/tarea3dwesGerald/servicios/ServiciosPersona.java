@@ -13,10 +13,10 @@ import com.gerald.tarea3dwesGerald.repositorios.PersonaRepository;
 public class ServiciosPersona {
 	
 	@Autowired
-	PersonaRepository repoPersona;
+	private PersonaRepository repoPersona;
 	
 	@Autowired
-	CredencialesRepository repoCredenciales;
+	private CredencialesRepository repoCredenciales;
 	
 	public boolean existeEmail(String email) {
 		return repoPersona.existsByEmail(email);
@@ -36,5 +36,13 @@ public class ServiciosPersona {
         // Devolver la persona con sus credenciales asociadas
         return persona;
     }
+	
+	public Persona obtenerPersonaPorUsuario(String usuario) {
+		return repoCredenciales.findPersonaByUsuario(usuario);
+	}
+	
+	public Persona obtenerPersonaPorId(Long id) {
+		return repoPersona.findPersonaById(id);
+	}
 
 }
