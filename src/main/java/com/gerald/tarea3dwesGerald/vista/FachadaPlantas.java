@@ -136,7 +136,7 @@ public class FachadaPlantas {
 										}
 									} while (!factory.getComprobaciones().nombreValido(nombrecien));
 									if (factory.getServiciosPlanta().actualizarPlanta(factory.getServiciosPlanta().listaPlantas().get(num - 1),
-											actnombrecomun, nombrecien) > 0) {
+											actnombrecomun, nombrecien) != null) {
 										System.out.println("Actualizado correctamente");
 									} else {
 										System.err.println("No se ha podido actualizar");
