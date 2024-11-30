@@ -26,6 +26,9 @@ public class FachadaPrincipal {
 
 	@Autowired
 	private FachadaEjemplares menuEjemplares;
+	
+	@Autowired
+	private FachadaMensajes menuMensajes;
 
 	Scanner teclado = new Scanner(System.in);
 
@@ -238,7 +241,7 @@ public class FachadaPrincipal {
 					break;
 				case 4:
 					// Llama al menu de gestionar mensajes
-
+					menuMensajes.mostrarMenuGestionarMensajes(s);
 					break;
 				case 5:
 					// Cerrar sesión
@@ -281,7 +284,7 @@ public class FachadaPrincipal {
 					break;
 				case 2:
 					// Llama al menú de mensajes
-
+					menuMensajes.mostrarMenuGestionarMensajes(s);
 					break;
 				case 3:
 					// Cerrar sesión

@@ -14,6 +14,8 @@ import com.gerald.tarea3dwesGerald.modelo.Persona;
 import com.gerald.tarea3dwesGerald.modelo.Planta;
 import com.gerald.tarea3dwesGerald.repositorios.EjemplarRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 
 @Service
 public class ServiciosEjemplar {
@@ -52,5 +54,9 @@ public class ServiciosEjemplar {
 	
 	public List<Ejemplar> listadoEjemplares() {
 		return repoEjemplar.findAll();
+	}
+	
+	public Ejemplar obtenerEjemplarporId(Long id) {
+		return repoEjemplar.findById(id).orElseThrow(() -> new EntityNotFoundException("Ejemplar no encontrada con el ID: " + id));
 	}
 }

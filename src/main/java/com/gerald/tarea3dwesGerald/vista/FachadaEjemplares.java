@@ -204,8 +204,8 @@ public class FachadaEjemplares {
 											
 											System.out.printf("%-80s %-30s %-20s %20s%n",m.getMensaje(),
 													factory.getComprobaciones().formatoFecha(m.getFechahora()),
-													factory.getServiciosPersona().obtenerPersonaPorId(m.getPersona().getId()).getNombre(),
-													factory.getServiciosPersona().obtenerPersonaPorId(m.getPersona().getId()).getEmail());
+													m.getPersona().getNombre(),
+													m.getPersona().getEmail());
 										}
 									}
 								}
