@@ -22,24 +22,20 @@ public class ServiciosPersona {
 		return repoPersona.existsByEmail(email);
 	}
 	
-	@Transactional // Asegura que ambas operaciones se hagan en una sola transacción
+	@Transactional 
     public Persona crearUsuario(Persona persona, Credenciales credenciales) {
-        // Guardar primero la persona
+       
         persona = repoPersona.save(persona);
-
-        // Asociar las credenciales con la persona
         credenciales.setPersona(persona);
-
-        // Guardar las credenciales
         credenciales = repoCredenciales.save(credenciales);
-
-        // Devolver la persona con sus credenciales asociadas
         return persona;
     }
+	
 	
 	public Persona obtenerPersonaPorUsuario(String usuario) {
 		return repoCredenciales.findPersonaByUsuario(usuario);
 	}
+	
 	
 	public Persona obtenerPersonaPorId(Long id) {
 		return repoPersona.findPersonaById(id);

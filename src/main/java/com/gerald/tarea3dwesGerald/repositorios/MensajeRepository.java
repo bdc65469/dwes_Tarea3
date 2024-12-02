@@ -14,7 +14,7 @@ import com.gerald.tarea3dwesGerald.modelo.Mensaje;
 @Repository
 public interface MensajeRepository extends JpaRepository <Mensaje, Long> {
 
-	@Query("SELECT m FROM Mensaje m JOIN m.ejemplar e JOIN m.persona p WHERE e.id = :idEjemplar ORDER BY m.fechahora ASC")
+	@Query("SELECT m FROM Mensaje m JOIN m.ejemplar e WHERE e.id = :idEjemplar ORDER BY m.fechahora ASC")
     List<Mensaje> findByEjemplarIdOrderByFechaHoraAsc(@Param("idEjemplar") Long idEjemplar);
 	
 	@Query("SELECT m FROM Mensaje m JOIN m.persona p WHERE p.id = :idPersona")

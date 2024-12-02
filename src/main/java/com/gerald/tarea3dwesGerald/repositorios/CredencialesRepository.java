@@ -17,5 +17,6 @@ public interface CredencialesRepository extends JpaRepository <Credenciales, Lon
 	
 	 @Query("SELECT c.persona FROM Credenciales c WHERE c.usuario = :usuario")
 	 Persona findPersonaByUsuario(@Param("usuario") String usuario);
+	 
 
 }
