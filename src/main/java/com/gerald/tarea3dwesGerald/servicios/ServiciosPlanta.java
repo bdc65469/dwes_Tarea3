@@ -21,7 +21,7 @@ public class ServiciosPlanta {
 	}
 
 	public List<Planta> listaPlantas() {
-		return plantaRepo.findAll();
+		return plantaRepo.findAllByOrderByNombrecomunAsc();
 	}
 
 	public boolean existeCodigoPlanta(String codigo) {

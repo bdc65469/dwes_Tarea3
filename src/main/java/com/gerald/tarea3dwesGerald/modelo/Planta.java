@@ -35,15 +35,7 @@ public class Planta implements Serializable {
 	@OneToMany(mappedBy = "planta", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Ejemplar> ejemplares = new HashSet<Ejemplar>();
 	
-	public Planta() {}
-	
-	public Planta(Long id, String nombrecomun, String nombrecientifico) {
-		super();
-		this.id = id;
-		this.nombrecomun = nombrecomun;
-		this.nombrecientifico = nombrecientifico;
-	}
-	
+	public Planta() {}	
 
 	public Planta(String codigo, String nombrecomun, String nombrecientifico) {
 		super();

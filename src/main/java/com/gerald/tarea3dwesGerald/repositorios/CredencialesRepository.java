@@ -11,7 +11,11 @@ import com.gerald.tarea3dwesGerald.modelo.Persona;
 @Repository
 public interface CredencialesRepository extends JpaRepository <Credenciales, Long>{
 	
-	 Credenciales findByUsuarioAndPassword(String usuario, String password);
+	 //Credenciales findByUsuarioAndPassword(String usuario, String password);
+	 
+	 //Para que distinga entre Mayus y Minus en el usuario y contraseña
+	 @Query(value = "SELECT * FROM credenciales WHERE BINARY usuario = :usuario AND BINARY password = :password", nativeQuery = true)
+	 Credenciales findByUsuarioAndPassword(@Param("usuario") String usuario, @Param("password") String password);
 	 
 	 boolean existsByUsuario(String usuario);
 	
