@@ -13,6 +13,11 @@ import com.gerald.tarea3dwesGerald.modelo.Planta;
 @Repository
 public interface EjemplarRepository  extends JpaRepository <Ejemplar, Long> {
 	
+	/**
+	 * Obtiene el id del último ejemplar de esa planta y le suma uno
+	 * @param p Planta a buscar
+	 * @return Un long que es el id que llevará el siguiente ejemplar creado
+	 */
 	default Long ultimoIdEjemplarByPlanta (Planta p) {
 		List<Ejemplar> lista = findAll();
 		if (!lista.isEmpty()) {
@@ -29,6 +34,11 @@ public interface EjemplarRepository  extends JpaRepository <Ejemplar, Long> {
 		
 	}
 	
+	/**
+	 * Devuelve la lista de ejemplares de una planta
+	 * @param codigo Codigo de la planta
+	 * @return Un conjunto de ejemplares de una planta
+	 */
 	 Set<Ejemplar> findByPlantaCodigo(String codigo);
 
 }

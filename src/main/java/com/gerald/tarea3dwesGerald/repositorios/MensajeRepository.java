@@ -14,17 +14,38 @@ import com.gerald.tarea3dwesGerald.modelo.Mensaje;
 @Repository
 public interface MensajeRepository extends JpaRepository <Mensaje, Long> {
 
+	/**
+	 * Filtra mensajes por ejemplar
+	 * @param idEjemplar id del ejemplar a buscar
+	 * @return Lista de mensajes
+	 */
 	@Query("SELECT m FROM Mensaje m JOIN m.ejemplar e WHERE e.id = :idEjemplar ORDER BY m.fechahora ASC")
     List<Mensaje> findByEjemplarIdOrderByFechaHoraAsc(@Param("idEjemplar") Long idEjemplar);
 	
+	/**
+	 * Filtra los mensajes realizados por una persona
+	 * @param idPersona id de la persona a buscar
+	 * @return Lista de mensajes
+	 */
 	@Query("SELECT m FROM Mensaje m JOIN m.persona p WHERE p.id = :idPersona")
 	List<Mensaje> obtenerMensajesPorPersona(@Param("idPersona") Long idPersona);
 	
+	/**
+	 * Filtra mensajes por fecha
+	 * @param fechaInicio Fecha inicial
+	 * @param fechaFin Fecha final
+	 * @return Una lista de mensajes
+	 */
 	@Query("SELECT m FROM Mensaje m WHERE m.fechahora BETWEEN :fechaInicio AND :fechaFin")
     List<Mensaje> obtenerMensajesPorRangoDeFecha(
             @Param("fechaInicio") LocalDateTime fechaInicio,
             @Param("fechaFin") LocalDateTime fechaFin);
 	
+	/**
+	 * Filtra mensajes por planta
+	 * @param codigo Codigo de la planta a buscar
+	 * @return Lista de mensajes
+	 */
 	@Query("SELECT m FROM Mensaje m " +
 	           "JOIN m.ejemplar e " +
 	           "JOIN e.planta p " +

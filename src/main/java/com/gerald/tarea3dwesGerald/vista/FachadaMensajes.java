@@ -108,36 +108,54 @@ public class FachadaMensajes {
 					break;
 				case 2:
 					// Filtrar mensajes por persona
-					String usuario = "";
-					do {
-						System.out.println("Introduce el usuario que quieres ver sus mensajes: ");
-						usuario = teclado.nextLine();
-						if (usuario.length() == 0) {
-							System.out.println("Por favor introduce un usuario.");
-						} else {
-							if (!factory.getServiciosCredenciales().existeUsuario(usuario)) {
-								System.out.println("No existe ese usuario");
+					if (factory.getServiciosCredenciales().listaUsuario().size()==0) {
+						System.out.println("No hay usuarios registrados");
+					}else {
+						System.out.println("LISTA DE USUARIOS REGISTRADOS");
+						System.out.printf("%-10s %-30s%n", "ÍNDICE", "USUARIO");
+						System.out.println("---------------------------------------");
+						for (int i=0; i<factory.getServiciosCredenciales().listaUsuario().size();i++) {
+							System.out.printf("%-10s %-30s%n", i+1, factory.getServiciosCredenciales().listaUsuario().get(i).getUsuario());
+						}
+						int numFinal = factory.getServiciosCredenciales().listaUsuario().size();
+						int num = 0;
+						
+						do {
+							System.out.println("Introduce el numero usuario que quieres ver sus mensajes: ");
+							num = teclado.nextInt();
+							if (num < 1 || num > numFinal) {
+								System.err.println(
+										"Numero incorrecto. Tienes que introducir un número entre el 1 y el "
+												+ numFinal);
 							} else {
-								List <Mensaje> listaMensajes = factory.getServiciosMensaje()
-										.obtenerMensajesPorPersona(factory.getServiciosPersona().obtenerPersonaPorUsuario(usuario).getId());
-								if (listaMensajes.isEmpty()) {
-									System.out.println("El usuario " + usuario + " no ha escrito ningun mensaje");
+								String usuario = factory.getServiciosCredenciales().listaUsuario().get(num-1).getUsuario();
+								if (!factory.getServiciosCredenciales().existeUsuario(usuario)) {
+									System.out.println("No existe ese usuario");
 								} else {
-									System.out.println("Mensajes del usuario " + usuario + " :");
-									System.out.printf("%-80s %-30s %-20s %20s%n", "MENSAJE", "FECHA", "EJEMPLAR",
-											"AUTOR");
-									System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------");
-									for (Mensaje m : listaMensajes) {
-										System.out.printf("%-80s %-30s %-20s %20s %n", m.getMensaje(),
-												factory.getComprobaciones().formatoFecha(m.getFechahora()),
-												m.getEjemplar().getNombre(),
-												m.getPersona().getNombre());
+									List <Mensaje> listaMensajes = factory.getServiciosMensaje()
+											.obtenerMensajesPorPersona(factory.getServiciosPersona().obtenerPersonaPorUsuario(usuario).getId());
+									if (listaMensajes.isEmpty()) {
+										System.out.println("El usuario " + usuario + " no ha escrito ningun mensaje");
+									} else {
+										System.out.println("Mensajes del usuario " + usuario + " :");
+										System.out.printf("%-80s %-30s %-20s %20s%n", "MENSAJE", "FECHA", "EJEMPLAR",
+												"AUTOR");
+										System.out.println("----------------------------------------------------");
+										for (Mensaje m : listaMensajes) {
+											System.out.printf("%-80s %-30s %-20s %20s %n", m.getMensaje(),
+													factory.getComprobaciones().formatoFecha(m.getFechahora()),
+													m.getEjemplar().getNombre(),
+													m.getPersona().getNombre());
+										}
 									}
 								}
 							}
-						}
 
-					} while (!factory.getServiciosCredenciales().existeUsuario(usuario) || usuario.length() == 0);
+						} while (num < 1 || num > numFinal);
+						
+					}
+					
+					
 
 					break;
 				case 3:
